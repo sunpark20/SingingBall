@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "SingingBall",
+    "slug": "singing-ball",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#0D0D1A"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.singingball.app",
+      "infoPlist": {
+        "UIBackgroundModes": ["audio"]
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0D0D1A"
+      },
+      "package": "com.singingball.app"
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-av"
+    ]
+  }
+}
