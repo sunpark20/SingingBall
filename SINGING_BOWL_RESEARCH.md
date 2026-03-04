@@ -276,7 +276,8 @@
 ### 5-1. 앱 개요
 
 - **앱 이름:** SingingBall (싱잉볼)
-- **플랫폼:** iOS / Android (React Native or Flutter)
+- **플랫폼:** iOS / Android (React Native Expo 52)
+- **오디오:** react-native-audio-api (Web Audio API, <50ms 레이턴시)
 - **확장 계획:** 태블릿 → 웹
 - **핵심 가치:** 청명하고 깨끗한 싱잉볼 사운드
 

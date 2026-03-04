@@ -8,34 +8,30 @@ import VerticalSlider from '../components/VerticalSlider';
 import PlayButton from '../components/PlayButton';
 import PresetSelector from '../components/PresetSelector';
 import { BowlPreset, PRESETS, DEFAULT_FREQUENCY, DEFAULT_STEP } from '../audio/presets';
-import { playBowlStrike, stopSound } from '../audio/player';
+import { playBowlStrike, stopSound, getEffectiveDuration } from '../audio/player';
 
 export default function HomeScreen() {
   const [frequency, setFrequency] = useState(DEFAULT_FREQUENCY);
   const [step, setStep] = useState(DEFAULT_STEP);
   const [preset, setPreset] = useState<BowlPreset>(PRESETS[2]); // Thadobati default
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
-  const handlePlay = useCallback(async () => {
+  const timerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handlePlay = useCallback(() => {
     if (isPlaying) {
-      await stopSound();
+      stopSound();
+      if (timerRef.current) clearTimeout(timerRef.current);
       setIsPlaying(false);
       return;
     }
 
-    setIsLoading(true);
-    try {
-      await playBowlStrike(frequency, preset);
-      setIsPlaying(true);
-      // Auto-reset when sound finishes (based on duration)
-      const duration = Math.min(25, Math.max(8, preset.partials[0].decay * 4.6));
-      setTimeout(() => setIsPlaying(false), duration * 1000);
-    } catch (e) {
-      console.error('Playback error:', e);
-    } finally {
-      setIsLoading(false);
-    }
+    // Synchronous — no file I/O, instant playback via Web Audio API
+    playBowlStrike(frequency, preset);
+    setIsPlaying(true);
+
+    const duration = getEffectiveDuration(preset);
+    timerRef.current = setTimeout(() => setIsPlaying(false), duration * 1000);
   }, [frequency, preset, isPlaying]);
 
   return (
@@ -81,7 +77,7 @@ export default function HomeScreen() {
         <View style={styles.playArea}>
           <PlayButton
             onPress={handlePlay}
-            isLoading={isLoading}
+            isLoading={false}
             isPlaying={isPlaying}
             color={preset.color}
           />
