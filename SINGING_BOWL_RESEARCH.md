@@ -414,6 +414,291 @@ Phase 1에서는 UI에 노출하지 않되, 내부적으로 정의:
 
 ---
 
+---
+
+## 7. 싱잉볼 프리셋 설계: 몇 가지를 만들 것인가?
+
+### 7-1. 디지털 합성으로 구분 가능한 음향 파라미터 5가지
+
+실제 싱잉볼의 소리 차이를 디지털로 재현할 때, 귀로 **확실히 구분되는** 파라미터는 다음 5가지:
+
+```
+① 배음 개수 (Partial Count)
+   - 적음 (2~3개): 맑고 벨 같은 소리 → Thadobati, Crystal
+   - 많음 (6~18개): 복잡하고 징 같은 소리 → Jambati, Manipuri
+
+② 감쇠 시간 (Decay Time)
+   - 짧음 (8~15초): 황동(brass) 볼 → 인도 저가형
+   - 중간 (30~45초): 일반 청동 볼
+   - 김 (45~90초): 고급 청동 (78:22 Cu:Sn) → 네팔 수공예
+   - 매우 김 (60~180초): 크리스탈 볼
+
+③ 배음 비율 (Partial Ratios — 정수배 vs 비정수배)
+   - 거의 정수배: 맑고 조화로운 소리 → Crystal
+   - 비정수배: 특유의 "금속성" 울림 → 전통 금속 볼
+   - 극단적 비정수배: 징/공 같은 소리 → 대형 Jambati
+
+④ 맥놀이 속도 (Beat Frequency)
+   - 느림 (~2Hz, Delta파): 깊은 명상감 → 대형 볼
+   - 중간 (~5Hz, Theta파): 몽환적 → 중형 볼
+   - 빠름 (~7Hz+, Alpha파): 활기찬 → 소형 볼
+
+⑤ 고음 감쇠 속도 (High Partial Decay Rate)
+   - 빠름: 타격 직후 복잡 → 곧 단순해짐 (청동)
+   - 느림: 오래도록 복잡한 음색 유지 (크리스탈)
+```
+
+### 7-2. 이론적 조합 수 vs 실용적 구분
+
+#### 이론적 최대 조합
+
+```
+볼 종류 6가지 × 나라/재질 4가지 = 24가지 조합
+
+  볼 종류: Thadobati, Jambati, Manipuri, Ultabati, Remuna, Naga
+  나라/재질: 네팔 고급청동, 인도 황동, 중국 기계제작, 크리스탈(서양)
+```
+
+#### 그런데 실제로 귀로 구분되는가?
+
+| 조합 | 소리 차이 체감 | 이유 |
+|------|-------------|------|
+| Thadobati vs Jambati | **확실히 다름** | 배음 3개 vs 10개+ (벨 vs 징) |
+| Jambati vs Ultabati | **구분됨** | Ultabati가 더 깊고 OM 느낌 |
+| Thadobati vs Remuna | 약간 다름 | 둘 다 벨 같지만 Remuna가 더 섬세 |
+| Manipuri vs Jambati | 약간 다름 | 비슷한 배음 구조, 음역이 다름 |
+| Remuna vs Manipuri | **거의 비슷** | 디지털로 구분 어려움 |
+| Naga vs 나머지 | 약간 다름 | 받침대 왜곡 효과만 차이 |
+| 네팔 청동 vs 인도 황동 | **확실히 다름** | 감쇠 30~90초 vs 8~15초 |
+| 금속 vs 크리스탈 | **완전히 다름** | 복합파 vs 순수 사인파 |
+
+### 7-3. 최종 추천: 8가지 프리셋
+
+실용적으로 **소리가 확실히 다르게 느껴지는** 조합만 선별하여 **8가지** 추천:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    싱잉볼 프리셋 8종                              │
+├────┬───────────────────┬────────────────────────────────────────┤
+│ #  │ 프리셋 이름        │ 음향 특성                               │
+├────┼───────────────────┼────────────────────────────────────────┤
+│    │                   │                                        │
+│ 1  │ Crystal Pure      │ 순수 사인파, 매우 긴 감쇠 (60s+)         │
+│    │ 크리스탈 퓨어       │ 배음 1~2개, 맑고 투명한 소리              │
+│    │                   │ → 가장 깨끗한 기본 소리                   │
+│    │                   │                                        │
+│ 2  │ Crystal Alchemy   │ 사인파 기반 + 미네랄 배음 3~4개           │
+│    │ 크리스탈 알케미     │ 긴 감쇠, 약간의 복합적 울림               │
+│    │                   │ → Crystal인데 좀 더 풍부한 소리           │
+│    │                   │                                        │
+│ 3  │ Thadobati Bell    │ 배음 3개, 벨 같은 맑은 소리               │
+│    │ 타도바티 벨        │ 중간 감쇠 (30~45s), 밝고 선명             │
+│    │                   │ → 전통 싱잉볼의 대표적 소리               │
+│    │                   │                                        │
+│ 4  │ Manipuri Bright   │ 배음 4~6개, 얇고 밝은 고음               │
+│    │ 마니푸리 브라이트   │ 중간 감쇠 (25~40s), 섬세하고 가벼움       │
+│    │                   │ → 높은 음역대에서 특히 예쁜 소리           │
+│    │                   │                                        │
+│ 5  │ Jambati Deep      │ 배음 8~12개, 징/공 같은 복합음            │
+│    │ 잠바티 딥          │ 긴 감쇠 (45~90s), 깊고 풍부               │
+│    │                   │ → 묵직하고 웅장한 소리                    │
+│    │                   │                                        │
+│ 6  │ Ultabati OM       │ 배음 6~10개, 초저음 OM 사운드            │
+│    │ 울타바티 옴         │ 긴 감쇠, 매우 느린 맥놀이 (~2Hz)         │
+│    │                   │ → 가장 깊고 명상적인 소리                 │
+│    │                   │                                        │
+│ 7  │ Nepal Antique     │ 배음 5~8개, 수공예 특유의 불규칙 배음       │
+│    │ 네팔 앤티크        │ 긴 감쇠 (45~70s), 빈티지 따뜻한 울림      │
+│    │                   │ → 골동품 네팔 볼 특유의 깊은 맛            │
+│    │                   │                                        │
+│ 8  │ Indian Brass      │ 배음 4~6개, 밝고 금속적인 소리            │
+│    │ 인디안 브라스       │ 짧은 감쇠 (8~15s), 빠르게 사라짐          │
+│    │                   │ → 가볍고 캐주얼한 소리                    │
+│    │                   │                                        │
+└────┴───────────────────┴────────────────────────────────────────┘
+```
+
+### 7-4. 각 프리셋의 합성 파라미터 상세
+
+#### 프리셋 1: Crystal Pure (크리스탈 퓨어)
+
+```
+  배음 구조:
+    Partial 1: F × 1.000  |  진폭 1.00  |  감쇠 70초
+    Partial 2: F × 2.001  |  진폭 0.08  |  감쇠 40초
+
+  맥놀이: ±0.3Hz (거의 없음)
+  어택: 10ms (부드러운 타격)
+  캐릭터: 거의 순수한 사인파, 유리처럼 맑음
+```
+
+#### 프리셋 2: Crystal Alchemy (크리스탈 알케미)
+
+```
+  배음 구조:
+    Partial 1: F × 1.000  |  진폭 1.00  |  감쇠 65초
+    Partial 2: F × 2.003  |  진폭 0.15  |  감쇠 40초
+    Partial 3: F × 3.010  |  진폭 0.10  |  감쇠 25초
+    Partial 4: F × 4.020  |  진폭 0.05  |  감쇠 15초
+
+  맥놀이: ±0.5Hz (미세)
+  어택: 10ms
+  캐릭터: 맑지만 약간의 미네랄 질감
+```
+
+#### 프리셋 3: Thadobati Bell (타도바티 벨)
+
+```
+  배음 구조:
+    Partial 1: F × 1.000  |  진폭 1.00  |  감쇠 40초
+    Partial 2: F × 2.710  |  진폭 0.65  |  감쇠 25초
+    Partial 3: F × 5.400  |  진폭 0.35  |  감쇠 15초
+
+  맥놀이: ±1.5Hz (각 파셜에 독립 적용)
+  어택: 5ms (선명한 타격)
+  캐릭터: "딩~" 하는 맑은 벨 소리 + 금속 울림
+```
+
+#### 프리셋 4: Manipuri Bright (마니푸리 브라이트)
+
+```
+  배음 구조:
+    Partial 1: F × 1.000  |  진폭 1.00  |  감쇠 35초
+    Partial 2: F × 2.680  |  진폭 0.50  |  감쇠 20초
+    Partial 3: F × 4.200  |  진폭 0.40  |  감쇠 15초
+    Partial 4: F × 6.300  |  진폭 0.25  |  감쇠 10초
+    Partial 5: F × 8.100  |  진폭 0.10  |  감쇠  6초
+
+  맥놀이: ±2.0Hz
+  어택: 5ms
+  캐릭터: 밝고 섬세, 얇은 벽에서 나는 빛나는 소리
+```
+
+#### 프리셋 5: Jambati Deep (잠바티 딥)
+
+```
+  배음 구조:
+    Partial 1:  F × 1.000  |  진폭 1.00  |  감쇠 60초
+    Partial 2:  F × 2.530  |  진폭 0.70  |  감쇠 35초
+    Partial 3:  F × 4.100  |  진폭 0.55  |  감쇠 25초
+    Partial 4:  F × 5.800  |  진폭 0.40  |  감쇠 18초
+    Partial 5:  F × 7.600  |  진폭 0.30  |  감쇠 12초
+    Partial 6:  F × 9.500  |  진폭 0.20  |  감쇠  8초
+    Partial 7:  F × 11.200 |  진폭 0.12  |  감쇠  5초
+    Partial 8:  F × 13.400 |  진폭 0.07  |  감쇠  3초
+
+  맥놀이: ±1.2Hz (느리고 깊은 맥놀이)
+  어택: 8ms (약간 무딘 타격 — 큰 볼 느낌)
+  캐릭터: "궁~~~" 하는 깊고 웅장한 징 소리
+```
+
+#### 프리셋 6: Ultabati OM (울타바티 옴)
+
+```
+  배음 구조:
+    Partial 1:  F × 1.000  |  진폭 1.00  |  감쇠 70초
+    Partial 2:  F × 2.200  |  진폭 0.60  |  감쇠 40초
+    Partial 3:  F × 3.800  |  진폭 0.45  |  감쇠 28초
+    Partial 4:  F × 5.500  |  진폭 0.35  |  감쇠 20초
+    Partial 5:  F × 7.100  |  진폭 0.20  |  감쇠 14초
+    Partial 6:  F × 9.000  |  진폭 0.12  |  감쇠  8초
+
+  맥놀이: ±0.8Hz (매우 느림 — Delta파 영역)
+  어택: 12ms (둔탁한 타격)
+  서브하모닉: F × 0.500 (옥타브 아래) 진폭 0.15 추가
+  캐릭터: "옴~~~~" 초저음 진동, 명상의 끝판왕
+```
+
+#### 프리셋 7: Nepal Antique (네팔 앤티크)
+
+```
+  배음 구조:
+    Partial 1: F × 1.000  |  진폭 1.00  |  감쇠 55초
+    Partial 2: F × 2.760  |  진폭 0.55  |  감쇠 32초
+    Partial 3: F × 4.450  |  진폭 0.40  |  감쇠 22초
+    Partial 4: F × 6.800  |  진폭 0.25  |  감쇠 14초
+    Partial 5: F × 9.200  |  진폭 0.15  |  감쇠  9초
+
+  맥놀이: ±1.8Hz (불규칙 — 수공예 특유의 비대칭)
+  어택: 6ms
+  특수: 각 파셜의 맥놀이 속도가 미세하게 다름
+  캐릭터: 따뜻하고 빈티지한 울림, 약간의 불완전함이 매력
+```
+
+#### 프리셋 8: Indian Brass (인디안 브라스)
+
+```
+  배음 구조:
+    Partial 1: F × 1.000  |  진폭 1.00  |  감쇠 12초
+    Partial 2: F × 2.650  |  진폭 0.55  |  감쇠  7초
+    Partial 3: F × 5.100  |  진폭 0.30  |  감쇠  4초
+    Partial 4: F × 7.800  |  진폭 0.15  |  감쇠  2초
+
+  맥놀이: ±2.5Hz (빠르고 밝음)
+  어택: 3ms (날카로운 타격)
+  캐릭터: "딩!" 밝고 금속적, 빠르게 사라짐
+```
+
+### 7-5. 8종 프리셋 소리 차이 요약 비교
+
+```
+감쇠 시간 (짧음 → 김):
+  Indian Brass ■■□□□□□□□□  (~12초)
+  Manipuri     ■■■■■□□□□□  (~35초)
+  Thadobati    ■■■■■■□□□□  (~40초)
+  Nepal Antique■■■■■■■□□□  (~55초)
+  Jambati      ■■■■■■■■□□  (~60초)
+  Crystal Alch ■■■■■■■■□□  (~65초)
+  Crystal Pure ■■■■■■■■■□  (~70초)
+  Ultabati     ■■■■■■■■■□  (~70초)
+
+배음 복잡도 (단순 → 복잡):
+  Crystal Pure ■□□□□□□□□□  (2개, 순수)
+  Crystal Alch ■■□□□□□□□□  (4개, 약간 복합)
+  Thadobati    ■■■□□□□□□□  (3개, 벨)
+  Indian Brass ■■■■□□□□□□  (4개, 금속)
+  Manipuri     ■■■■■□□□□□  (5개, 밝음)
+  Nepal Antique■■■■■■□□□□  (5개, 따뜻)
+  Ultabati     ■■■■■■■□□□  (6개+서브, OM)
+  Jambati      ■■■■■■■■■□  (8개, 징)
+
+맥놀이 속도 (느림 → 빠름):
+  Crystal Pure ■□□□□□□□□□  (±0.3Hz — 거의 없음)
+  Crystal Alch ■■□□□□□□□□  (±0.5Hz)
+  Ultabati     ■■■□□□□□□□  (±0.8Hz — Delta파)
+  Jambati      ■■■■□□□□□□  (±1.2Hz)
+  Thadobati    ■■■■■□□□□□  (±1.5Hz)
+  Nepal Antique■■■■■■□□□□  (±1.8Hz — 불규칙)
+  Manipuri     ■■■■■■■□□□  (±2.0Hz)
+  Indian Brass ■■■■■■■■□□  (±2.5Hz — 밝고 빠름)
+```
+
+### 7-6. 왜 8개인가? (선택 근거)
+
+```
+❌ 제외한 것들:
+  - Remuna: Thadobati와 소리가 너무 비슷 → Thadobati에 통합
+  - Naga: 받침대 왜곡은 필터 하나로 표현 가능 → 별도 프리셋 불필요
+  - 중국 기계제작: Indian Brass와 음향적으로 거의 동일 → 통합
+
+✅ 포함 기준:
+  1. 귀로 들었을 때 확실히 다른 소리 (A/B 테스트 통과)
+  2. 각각 고유한 캐릭터가 있음 (용도/분위기 다름)
+  3. 감쇠+배음+맥놀이 3개 축에서 충분히 떨어져 있음
+
+✅ 8개의 포지셔닝:
+  Crystal Pure ──── "유리처럼 맑은" (입문자, ASMR)
+  Crystal Alchemy ─ "맑은데 깊은" (요가, 사운드 배스)
+  Thadobati ────── "전통 벨" (범용, 대표 싱잉볼 소리)
+  Manipuri ─────── "밝고 빛나는" (활력, 밝은 분위기)
+  Jambati ──────── "웅장한 징" (깊은 명상, 의식)
+  Ultabati ─────── "OM 진동" (최심층 명상)
+  Nepal Antique ── "빈티지 따뜻함" (편안함, 치유)
+  Indian Brass ─── "가볍고 캐주얼" (일상, 알림음)
+```
+
+---
+
 ## 참고 자료
 
 - [Singing Bowl Tones and Frequencies Complete Guide - Shanti Bowl](https://www.shantibowl.com/blogs/blog/singing-bowl-tones-and-frequencies-complete-guide)
@@ -428,3 +713,9 @@ Phase 1에서는 UI에 노출하지 않되, 내부적으로 정의:
 - [Chakras and Crystal Singing Bowls](https://www.rainbowsounds.co/blogs/rainbow-sounds-blog/the-7-chakras-and-crystal-singing-bowls)
 - [7 Chakra Frequency Chart - Heaven of Sound](https://heavenofsound.com/pages/chakras)
 - [How to Choose the Right Frequency - Raven Sounds](https://ravensounds.com/blogs/news/how-to-choose-the-right-frequency-for-your-singing-bowl)
+- [Metal vs Crystal Singing Bowls Spectral Analysis - The Ohm Store](https://www.theohmstore.co/blogs/our-stories/metal-vs-crystal-singing-bowls-spectral-analysis)
+- [How a Singing Bowl Produces Sound - The Ohm Store](https://www.theohmstore.co/blogs/our-stories/how-a-singing-bowl-produces-sound)
+- [Tibetan Singing Bowls MIT Paper](https://math.mit.edu/sites/bush/wp-content/uploads/2012/04/TibetanBowls.pdf)
+- [Vibration Modes and Sound Characteristic Analysis](https://www.matec-conferences.org/articles/matecconf/pdf/2018/44/matecconf_icpmmt2018_00017.pdf)
+- [Sound of Singing Bowls and Brainwave Synchronization - PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC10298245/)
+- [Physical Model Synthesis of Bowl Resonators - Stanford CCRMA](https://ccrma.stanford.edu/~carmenng/250b/icmc2002.pdf)
